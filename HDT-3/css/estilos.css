@@ -1,0 +1,70 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+#formularioDeSolicitud{
+    margin: 20px 45px;
+    padding: 15px;
+    box-shadow: 0px 0px 10px 1px rgba(0, 0, 0, 0.3);
+    border-radius: 15px;
+}
+
+#modalVista img{
+    max-height: 100px;
+}
+.contenedorGrid{
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    justify-items: center;
+    align-items: center;
+    grid-gap: 45px;
+}
+
+.column4{
+    grid-column: span 4;
+}
+.column6{
+    grid-column: span 6;
+}
+.column12{
+    grid-column: span 12;
+    
+}
+
+.contenedorGrid div{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+    
+}
+.contenedorGrid h1{
+    background-color: rgb(100, 113, 113);
+    width: 100%;
+    padding: 5px;
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+    color: #ffffff;
+    margin-top: 20px;
+}
+.contenedorGrid h2{
+    width: 100%;
+    text-align: center;
+    font-size: 12px;
+    font-weight: bold;
+    color: #000000;
+    margin-bottom: 1px;
+}
+
+.contenedorGrid p{
+    padding: 6px 0;
+    width: 100%;
+    background-color: #00000028;
+    text-align: center;
+    font-size: 12px;
+    color: #000000;
+
+}

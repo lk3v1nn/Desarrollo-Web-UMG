@@ -1,0 +1,67 @@
+*{
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+body{
+    background-color: rgb(7, 22, 28);
+    color: white;
+    height: 100vh;
+    display: grid;
+    padding: 20px;
+    grid-template-columns: 40% 60%;
+    grid-template-rows: 40% 60%;
+    grid-template-areas: "puntosClave carrusel" 
+                        "desarrolloTemas carrusel";
+                        
+}
+
+#puntosClave{
+    grid-area: puntosClave;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+#puntosClave h3{
+    color: rgb(80, 248, 243);
+    font-weight: 800;
+}
+
+#cotedorCarrusel{
+
+    grid-area: carrusel;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#cotedorCarrusel img{
+    max-width: 700px;
+    border: 3px solid rgb(80, 248, 243);
+    border-radius: 40px;
+}
+
+#desarrolloTemas{
+    text-align: center;
+    padding: 25px;
+    grid-area: desarrolloTemas;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+#desarrolloTemas h3{
+    color: rgb(80, 248, 243);
+    font-weight: 800;
+}
+
+#desarrolloTemas h5{
+    color: rgba(47, 255, 245, 0.779);
+}
+
+
+

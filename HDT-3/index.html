@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang='es'>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solicitud de Pasaporte</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/estilos.css">
+</head>
+<body>
+    <br>
+    <center><h1>Solicitud de pasaporte</h1></center>
+
+    <section id="formularioDeSolicitud">
+        <form class="row g-3" id="formPasaportexD">
+            <div class="col-md-6">
+                <div class="form-floating">
+                    <input type="text" class="form-control" id="nombres" name="nombres" placeholder="Nombre">
+                    <label for="nombres" class="form-label">Nombres</label>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-floating">
+                    <input type="text" class="form-control" id="apellidos" name="apellidos" placeholder="Apellido">
+                    <label for="apellidos" class="form-label">Apellidos</label>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-floating">
+                    <input type="date" class="form-control" id="fecha" name="fecha" placeholder="fecha">
+                    <label for="fecha" class="form-label">Fecha de nacimiento</label>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <label class="form-label">Genero</label> <br>
+                <input class="form-check-input" type="radio" name="genero" id="generoHombre" value="Hombre">
+                <label class="form-check-label" for="generoHombre">
+                    Hombre
+                </label>
+                <input class="form-check-input" type="radio" name="genero" id="generoMujer" value="Mujer">
+                <label class="form-check-label" for="generoMujer">
+                    Mujer
+                </label>
+                <input class="form-check-input" type="radio" name="genero" id="generoOtro" value="Otro">
+                <label class="form-check-label" for="generoOtro">
+                    Otro
+                </label>
+            </div>              
+            <div class="col-md-6">
+                <div class="form-floating">
+                    <input type="text" class="form-control" id="documento" name="documento" placeholder="0">
+                    <label for="documento" class="form-label">DPI</label>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-floating">
+                    <input class="form-control" type="file" id="subirArchivo" name="subirArchivo" placeholder="DPI">
+                    <label for="subirArchivo" class="form-label">Documento de Identificacion</label>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-floating">    
+                    <input type="text" class="form-control" id="telefono" name="telefono" placeholder="0000-0000">
+                    <label for="telefono" class="form-label">Telefono</label>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-floating">
+                    <input type="email" class="form-control" id="correo" name="correo" placeholder="nombre@ejemplo.com">
+                    <label for="correo" >Correo</label>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-floating ">
+                    <select class="form-select" aria-label="ColorDePiel" id="ColorDePiel" name="ColorDePiel">
+                        <option selected>Seleccione</option>
+                        <option value="Blanca">Blanca</option>
+                        <option value="Negra">Negra</option>
+                        <option value="Amarilla">Amarilla</option>
+                        <option value="Mulata">Mulata</option>
+                        <option value="Albina">Albina</option>
+                    </select>
+                    <label for="nacionalidad" class="form-label">Color De Piel</label>
+                </div>
+            </div>       
+            <div class="col-md-6">
+                <div class="form-floating ">
+                    <select class="form-select" aria-label="ColorDeCabello" id="ColorDeCabello" name="ColorDeCabello">
+                        <option selected>Seleccione</option>
+                        <option value="Canoso">Canoso</option>
+                        <option value="Negro">Negro</option>
+                        <option value="Rubio">Rubio</option>
+                        <option value="Castaño">Castaño</option>
+                        <option value="Rojo">Rojo</option>
+                        <option value="Otro">Otro</option>
+                    </select>
+                    <label for="nacionalidad" class="form-label">Color De Cabello</label>
+                </div>
+            </div>                  
+            <div class="col-md-12">
+                <div class="form-floating">
+                    <textarea class="form-control" placeholder="Soicitud" id="Soicitud" name="Soicitud" style="height: 100px"></textarea>
+                    <label for="floatingTextarea2">Motivo de la solicitud</label>
+                </div>
+            </div>
+            <div class="col-12">
+            <button type="submit" class="btn btn-primary" id="btnEnviar">Enviar</button>
+            </div>
+        </form>
+    </section>
+        <!-- <button class="btn btn-primary" onclick="imprimirDiv('impresion')">Imprimirxd </button> -->
+
+    <div class="modal" tabindex="-1" id="modalxd">
+        <div class="modal-dialog">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Errores en su solicitud</h5>
+                <button type="button" class="btn-close"  data-bs-dismiss="modal" aria-label="Close" id="btnCerrarModal1"></button>
+            </div>
+            <div id="cuerpoModal" class="modal-body"></div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="btnCerrarModal2" data-bs-dismiss="modal">Aceptar</button>
+            </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" tabindex="-1" id="modalVista">
+        <div class="modal-dialog modal-fullscreen">
+            <div class="modal-content">
+            <div class="modal-header">
+                <img src="https://igm.gob.gt/wp-content/uploads/2020/08/cropped-cropped-cropped-Logotipo-scaled-1.jpg">
+                <button type="button" class="btn-close"  data-bs-dismiss="modal" aria-label="Close" id="btnCerrarModalVista1"></button>
+            </div>
+            <div class="modal-body" id="impresion">
+                <div class="contenedorGrid" >
+                    <h1 class="column12" >DATOS GENERALES</h1>
+                    <div class="column4">
+                        <h2>NOMBRE</h2>
+                        <p id="nombreCompletoVista"></p>
+                    </div>
+                    <div class="column4">
+                        <h2>FECHA</h2>
+                        <p id="fechaNacimientoVista"></p>
+                    </div>
+                    <div class="column4">
+                        <h2>DOCUMENTO DE IDENTIFICACION</h2>
+                        <p id="dpiVista"></p>
+                    </div>
+                    <div class="column12">
+                        <h2>MOTIVO DE LA SOLICITUD</h2>
+                        <p id="motivoVista"></p>
+                    </div>
+                    <h1 class="column12">DATOS DE CONTACTO</h1>
+                    <div class="column6" >
+                        <h2>TELEFONO</h2>
+                        <p id="telefonoVista"></p>
+                    </div>
+                    <div class="column6">
+                        <h2>CORREO</h2>
+                        <p id="correoVista"></p>
+                    </div>
+                    <h1 class="column12">DATOS FISICOS</h1>
+                    <div class="column6">
+                        <h2>COLOR DE PIEL</h2>
+                        <p id="pielVista"></p>
+                    </div>
+                    <div class="column6">
+                        <h2>DE CABELLO</h2>
+                        <p id="cabelloVista"></p>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" onclick="imprimirDiv('impresion')">Imprimir</button>
+                <!-- <button type="button" class="btn btn-primary" id="btnCerrarModalVista2" data-bs-dismiss="modal">Aceptar</button> -->
+            </div>
+            </div>
+
+            </div>
+    </div>
+
+</body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+<script src="js/validadores.js"></script>
+</html>
