@@ -6,7 +6,6 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// mongoose.connect('mongodb://localhost:27017/')
 mongoose
   .connect("mongodb://localhost:27017/DB_UMG", {
     useNewUrlParser: true,
@@ -27,11 +26,6 @@ connection.on("err", (err) => {
 });
 
 //modelo de la base de datos
-// const Schema = mongoose.Schema;
-// const modelSchema = new  Schema({
-//     nombre : String,
-//     Edad: Number
-// });
 const DB_UMG = mongoose.model("carros", {
     "VIN (1-10)": String,
     "County": String,
