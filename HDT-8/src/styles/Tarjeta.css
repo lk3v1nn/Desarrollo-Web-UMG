@@ -1,0 +1,32 @@
+.card{
+    max-width: 250px;
+    height: 450px !important;
+    margin-top: 20px;
+    background-color: rgba(255, 255, 255, 0.568) !important;
+}
+
+.img{
+    max-height: 250px;
+    transition: all 0.8s ease;
+}
+.img:hover{
+    transform: scale(1.6);
+}
+.overflow{
+    overflow: hidden;
+}
+
+.text{
+    margin: 0;
+}
+
+.price{
+    font-size: 20px;    
+    font-weight: 500;
+    color: #3a6eff;
+}
+
+button{
+    font-weight: 500 !important;
+    box-shadow: 4px 4px black;
+}
