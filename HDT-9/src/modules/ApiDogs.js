@@ -1,5 +1,5 @@
 import React from "react";
-import { ImgDog } from "./ImagenDog";
+import { Imagen2 } from "./Imagen2";
 
 function ApiDogs() {
   const [dogs, setDogs] = React.useState([]);
@@ -18,7 +18,7 @@ function ApiDogs() {
     consumirApi();
   }, []);
 
-  return <>{!dogs ? "Cargando" : <ImgDog dato={dogs} />}</>;
+  return <>{!dogs ? "Cargando" : <Imagen2 dato={dogs} />}</>;
 }
 
 export { ApiDogs };

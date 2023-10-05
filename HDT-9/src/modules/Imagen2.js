@@ -2,7 +2,7 @@ import Image from "react-bootstrap/Image";
 import React from "react";
 import "../styles/Imagen.css";
 
-function ImgDog({ dato }) {
+function Imagen2({ dato }) {
   return (
     <>
       {dato.map((d) => {
@@ -15,4 +15,4 @@ function ImgDog({ dato }) {
   );
 }
 
-export { ImgDog };
+export { Imagen2 };
