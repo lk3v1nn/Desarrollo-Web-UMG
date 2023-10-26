@@ -9,7 +9,17 @@ const router = Router();
 //RUTA DE REGISTRO DE USUARIOS
 router.post("/api/registro/:DPI", async (req, res) => {
     //GUARDO LOS DATOS EN VARIABLES
-    const { Nombres, Apellidos, FechaNacimiento, Clave, ValidacionClave, DireccionEntrega, NIT, NumeroTelefonico, CorreoElectronico } = req.body;
+    const {
+        Nombres,
+        Apellidos,
+        FechaNacimiento,
+        Clave,
+        ValidacionClave,
+        DireccionEntrega,
+        NIT,
+        NumeroTelefonico,
+        CorreoElectronico,
+    } = req.body;
 
     //VALIDADORES DE DATOS
     if (!validadores.validarCorreo(CorreoElectronico)) {
@@ -19,7 +29,9 @@ router.post("/api/registro/:DPI", async (req, res) => {
         return res.status(400).json({ Error: "El NIT ingresado ya existe" });
     }
     if (await validadores.validaCorreoExistente(CorreoElectronico)) {
-        return res.status(400).json({ Error: "El Correo electronico ingresado ya existe" });
+        return res
+            .status(400)
+            .json({ Error: "El Correo electronico ingresado ya existe" });
     }
     if (!validadores.validarClaveSegura(Clave)) {
         return res.status(400).json({
@@ -52,14 +64,20 @@ router.post("/api/registro/:DPI", async (req, res) => {
 //Módulo de Login:
 router.post("/api/login", async (req, res) => {
     const { CorreoElectronico, Clave } = req.body;
-    const data = await bdUsuarios.findOne({ CorreoElectronico, Clave });
-    if (!data) {
-        return res.status(401).json({ Error: "Las credenciales no son validas" });
+    try {
+        const data = await bdUsuarios.findOne({ CorreoElectronico, Clave });
+        if (!data) {
+            return res
+                .status(401)
+                .json({ Error: "Las credenciales no son validas" });
+        }
+        const token = jwt.sign({ id: data._id }, "textosupersecreto", {
+            expiresIn: 60 * 60 * 24 * 30,
+        });
+        res.cookie("token", token).json({ mensaje: 'sesion iniciada' });
+    } catch (error) {
+        res.status(500).json({ Error: "Error del servidor" });
     }
-    const token = jwt.sign({ id: data._id }, "textosupersecreto", {
-        expiresIn: 60 * 60 * 24 * 30,
-    });
-    res.status(200).json({ token });
 });
 
 //Módulo de Gestión de Perfil:
@@ -78,25 +96,45 @@ router.post("/api/perfil/:DPI", verificaToken, async (req, res) => {
         return res.status(400).json({ Error: "No se permiten campos vacios" });
     }
     if (await validadores.validarNitDuplicado(objetoUsuario.NIT, req.tokenD)) {
-        return res.status(400).json({ Error: "El NIT ya existe para otro usuario" });
+        return res
+            .status(400)
+            .json({ Error: "El NIT ya existe para otro usuario" });
     }
-    if (await validadores.validarCorreoDuplicado(objetoUsuario.CorreoElectronico, req.tokenD)) {
-        return res.status(400).json({ Error: "El Correo electronico ya existe para otro usuario" });
+    if (
+        await validadores.validarCorreoDuplicado(
+            objetoUsuario.CorreoElectronico,
+            req.tokenD
+        )
+    ) {
+        return res
+            .status(400)
+            .json({
+                Error: "El Correo electronico ya existe para otro usuario",
+            });
     }
 
     await bdUsuarios.updateOne({ _id: req.tokenD }, objetoUsuario);
     // const data = await bdUsuarios.findOne({ _id: req.tokenD });
-    res.status(200).json({Mensaje: "Datos actualizados con exito"});
+    res.status(200).json({ Mensaje: "Datos actualizados con exito" });
 });
 
 router.delete("/api/perfil/:DPI", verificaToken, async (req, res) => {
-    const {Clave, CorreoElectronico} = req.body;
-    const credencialesValidas = await bdUsuarios.findOne({Clave, CorreoElectronico})
-    if(!credencialesValidas){
-        return res.status(400).json({ Error : 'Ingrese la clave y correo correcta para eliminar el usuario'})
+    const { Clave, CorreoElectronico } = req.body;
+    const credencialesValidas = await bdUsuarios.findOne({
+        Clave,
+        CorreoElectronico,
+    });
+    if (!credencialesValidas) {
+        return res
+            .status(400)
+            .json({
+                Error: "Ingrese la clave y correo correcta para eliminar el usuario",
+            });
     }
-    await bdUsuarios.deleteOne({Clave, CorreoElectronico})
-    res.status(200).json({mensajes : 'Usuario: ' + CorreoElectronico + ' eliminado correctamente'})
+    await bdUsuarios.deleteOne({ Clave, CorreoElectronico });
+    res.status(200).json({
+        mensajes: "Usuario: " + CorreoElectronico + " eliminado correctamente",
+    });
 });
 
 module.exports = router;

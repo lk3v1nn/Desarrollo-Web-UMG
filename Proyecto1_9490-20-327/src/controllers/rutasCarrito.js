@@ -4,33 +4,81 @@ const verificaToken = require("../verificaToken");
 const bdCarrito = require("../models/carrito");
 
 router.get("/api/carrito", verificaToken, async (req, res) => {
-    const data = await bdCarrito.find();
+    const data = await bdCarrito.find({ id_user: req.tokenD });
     res.json(data);
 });
 
-router.post("/api/carrito", verificaToken, async (req, res) => {
+router.post("/api/carrito/add", verificaToken, async (req, res) => {
     const user = req.tokenD;
-    const cantidad = req.body.Productos.Cantidad;
+    console.log('usuario', user);
+    
+    const productoAgregado = req.body.producto;
+    const cantidad = req.body.cantidad;
 
-    if (!cantidad) {
-        return res.json({ Error: "No se ingreso una cantidad" });
+    if (!cantidad || !productoAgregado) {
+        return res.json({ Error: "datos incompletos" });
     }
 
-    let data = await bdCarrito.findOne({ id_user: user });
+    //BUSCA SI YA EXISTE EL PRODUCTO
+    const data = await bdCarrito.findOne({
+        id_user: user,
+        producto: productoAgregado,
+    });
+    //SI NO EXISTE LO AGREGA
     if (!data) {
-        return res.json({ Error: "No se encontro un carrito para este usuario" });
+        try {
+            const nuevoItemCarrito = new bdCarrito({
+                id_user: user,
+                producto: productoAgregado,
+                cantidad: cantidad,
+            });
+            nuevoItemCarrito.save();
+            return res.json({ mensaje: "producto agregado al carrito" });
+        } catch (error) {
+            res.json({ error: "error al agregar al carrito" });
+        }
+    }else{ //SI YA EXISTE ACTUZALIZA LA CANTIDAD
+        data.cantidad = cantidad;
+        await bdCarrito.updateOne({ id_user: user, producto:productoAgregado }, {cantidad: data.cantidad});
+//     await bdCarrito.updateOne({ id_user: user }, data);
+        return res.json({ mensaje: "Carrito actualizado" });
     }
-    data.Productos.Cantidad = cantidad;
-
-    await bdCarrito.updateOne({ id_user: user }, data);
-    data = await bdCarrito.findOne({ id_user: user });
-    res.status(200).json(data);
 });
 
-router.delete('/api/carrito', verificaToken, async(req, res) => {
+router.delete("/api/carrito", verificaToken, async (req, res) => {
     const user = req.tokenD;
-    await bdCarrito.deleteOne({ id_user: user })
-    res.json({Mensjae: "Carrito eliminado"})
+    try {
+        const producto = req.body.producto;
+        if (!producto) {
+            return res.json({ Error: "datos incompletos" });
+        }
+        await bdCarrito.deleteOne({ id_user: user, producto });
+        res.json({ Mensjae: "Item eliminado del carrito" });
+    } catch (error) {
+        res.json({ error: "error al eliminar del carrito" });
+    }
 });
 
 module.exports = router;
+
+
+// router.post("/api/carrito/actualizar", verificaToken, async (req, res) => {
+//     const user = req.tokenD;
+//     const producto = req.body.producto;
+
+//     if (!cantidad) {
+//         return res.json({ Error: "No se ingreso una cantidad" });
+//     }
+
+//     let data = await bdCarrito.findOne({ id_user: user });
+//     if (!data) {
+//         return res.json({
+//             Error: "No se encontro un carrito para este usuario",
+//         });
+//     }
+//     data.Productos.Cantidad = cantidad;
+
+//     await bdCarrito.updateOne({ id_user: user }, data);
+//     data = await bdCarrito.findOne({ id_user: user });
+//     res.status(200).json(data);
+// });

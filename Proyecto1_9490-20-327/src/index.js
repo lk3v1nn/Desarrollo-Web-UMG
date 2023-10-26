@@ -1,4 +1,5 @@
 const express = require ('express')
+const cookieParser = require('cookie-parser')
 const rutasUsuario = require('./controllers/rutasUsuario')
 const rutasProducto = require('./controllers/rutasProducto')
 const rutasCarrito = require ('./controllers/rutasCarrito')
@@ -8,12 +9,24 @@ const DB_UMG = require("./baseDeDatos");
 const app = express();
 
 app.use(express.json());
+app.use(cookieParser());
+app.use(function (req, res, next) {
+    res.header("Access-Control-Allow-Origin", "http://localhost:3000"); // Es lo mismo que la configuracion de CORS de abajo
+    res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
+    res.header("Access-Control-Allow-Headers", "Content-Type, x-access-token");
+    res.header("Access-Control-Allow-Credentials", "true");
+    next();
+});
 
 app.use(rutasUsuario);
 app.use(rutasProducto);
 app.use(rutasCarrito);
 app.use(rutasCompra);
 
-app.listen(3000, ()=>{
-    console.log('Servidor iniciado en puerto 3000');
+app.get('/', (req, res)=>{
+    res.cookie('cookie_name', 'cookie_value').send('Cookie is set');
+})
+
+app.listen(8000, ()=>{
+    console.log('Servidor iniciado');
 })
