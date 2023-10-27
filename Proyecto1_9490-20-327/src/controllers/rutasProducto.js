@@ -5,7 +5,7 @@ const verificaToken = require("../verificaToken");
 const validadores = require("../validadores.js");
 
 //Catálogo de Productos
-router.get("/api/productos", verificaToken, async (req, res) => {
+router.get("/api/productos", async (req, res) => {
     const data = await bdProducto.find();
     res.status(200).json(data);
 });
