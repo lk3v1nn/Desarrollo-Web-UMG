@@ -10,7 +10,7 @@ export default function Nav() {
                         className="h-8 mr-3"
                         alt="Flowbite Logo"
                     /> */}
-                    <span className="self-center text-2xl font-semibold whitespace-nowrap blue:text-white">
+                    <span className="text-indigo-600 self-center text-2xl font-semibold whitespace-nowrap blue:text-white">
                         Proyecto 2
                     </span>
                 </a>

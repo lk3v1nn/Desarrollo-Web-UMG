@@ -26,7 +26,7 @@ export default function Producto(props: {
                             <small>Q {props.descuento}</small><h4>Q {props.precioDescuento}</h4>
                         </div>
                     </div>
-                    <button className="my-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                    <button className="my-4 bg-indigo-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                         Agregar
                     </button>
                 </div>
