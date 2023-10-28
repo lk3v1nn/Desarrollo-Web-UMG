@@ -3,10 +3,11 @@
     grid-template-columns: 60% 40%;
     grid-template-areas: 'products info';
     min-width: 100%;
+    padding: 10px 0;
 }
 .products{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
     grid-area: products;
+    display: flex;
+    padding: 0 10%;
+    flex-direction: column;
 }
