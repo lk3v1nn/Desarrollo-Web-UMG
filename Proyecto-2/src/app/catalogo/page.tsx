@@ -10,7 +10,7 @@ export default function catalogo() {
 
     useEffect(() => {
         const respuestaAxios = axios
-            .get("https://l5kbp6rc-8000.use2.devtunnels.ms/api/productos")
+            .get("http://localhost:8000/api/productos")
             .then((res) => {
                 setProducto(res.data);
             })

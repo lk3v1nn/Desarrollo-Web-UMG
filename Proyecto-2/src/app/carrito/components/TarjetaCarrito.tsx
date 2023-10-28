@@ -1,4 +1,4 @@
-export default function TarjetaCarrito() {
+export default function TarjetaCarrito(prop: {nombre: string, descripcion: string, cantidad: string}) {
     return (
         <a
             href="#"
@@ -11,10 +11,10 @@ export default function TarjetaCarrito() {
             ></img>
             <div className="flex flex-col justify-between p-4 leading-normal">
                 <h5 className="mb-2 text-m tracking-tight text-indigo-600">
-                    Nombre
+                    {prop.nombre}
                 </h5>
-                <p className="mb-3 font-normal text-gray-700 ">Descripcion</p>
-                <p className="mb-3 font-normal text-gray-700 ">Cantidad</p>
+                <p className="mb-3 font-normal text-gray-700 ">{prop.descripcion}</p>
+                <p className="mb-3 font-normal text-gray-700 ">{prop.cantidad}</p>
                 <button className="relative  px-4 py-2 text-sm font-medium text-center text-white bg-red-700 rounded-lg hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-blue-300 ">
                     Eliminar
                 </button>
