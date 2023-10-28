@@ -1,0 +1,12 @@
+.container{
+    display: grid;
+    grid-template-columns: 60% 40%;
+    grid-template-areas: 'products info';
+    min-width: 100%;
+}
+.products{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    grid-area: products;
+}

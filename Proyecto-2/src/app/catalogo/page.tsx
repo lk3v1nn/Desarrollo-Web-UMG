@@ -2,15 +2,15 @@
 
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import "../../styles/Catalogo.css";
-import Producto from "../../components/Producto";
+import "./styles/Catalogo.css";
+import Producto from "./components/Producto";
 
 export default function catalogo() {
     const [productos, setProducto] = useState();
 
     useEffect(() => {
         const respuestaAxios = axios
-            .get("http://localhost:8000/api/productos")
+            .get("https://l5kbp6rc-8000.use2.devtunnels.ms/api/productos")
             .then((res) => {
                 setProducto(res.data);
             })

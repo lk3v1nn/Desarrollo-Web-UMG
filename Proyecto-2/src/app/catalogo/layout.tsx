@@ -1,4 +1,4 @@
-import '../../styles/Carrito.css'
+import BotonCarrito from "./components/BotonCarrito";
 
 export default function ProductosLayout({
     children,
@@ -7,14 +7,7 @@ export default function ProductosLayout({
 }) {
     return (
         <>
-            <div className="cartContainer">
-                <button className="cartButton">carrito</button>
-                <div className='cantidadArticulosContainer'>
-                    <div className='cantidad'>
-                        10
-                    </div>
-                </div>
-            </div>
+            <BotonCarrito/>
             {children}
         </>
     );
