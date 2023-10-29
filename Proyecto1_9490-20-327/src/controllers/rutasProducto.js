@@ -10,7 +10,7 @@ router.get("/api/productos", async (req, res) => {
     res.status(200).json(data);
 });
 
-router.get("/api/Producto/:ID", verificaToken, async (req, res) => {
+router.get("/api/Producto/:ID", async (req, res) => {
     const data = await bdProducto.findOne({ Identificador: req.params.ID });
     if (!data) {
         return res.status(404).json({ Error: "Producto no encontrado" });

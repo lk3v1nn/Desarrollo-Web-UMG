@@ -8,8 +8,6 @@ const DB_UMG = require("./baseDeDatos");
 
 const app = express();
 
-app.use(express.json());
-app.use(cookieParser());
 app.use(function (req, res, next) {
     res.header("Access-Control-Allow-Origin", "http://localhost:3000"); // Es lo mismo que la configuracion de CORS de abajo
     // res.header("Access-Control-Allow-Origin", "https://l5kbp6rc-3000.use2.devtunnels.ms"); // Es lo mismo que la configuracion de CORS de abajo
@@ -19,13 +17,16 @@ app.use(function (req, res, next) {
     next();
 });
 
+app.use(cookieParser());
+app.use(express.json());
 app.use(rutasUsuario);
 app.use(rutasProducto);
 app.use(rutasCarrito);
 app.use(rutasCompra);
 
 app.get('/', (req, res)=>{
-    res.cookie('cookie_name', 'cookie_value').send('esta respondiendo');
+    res.send(req.cookies);
+    // res.cookie('cookie_name', 'cookie_value').send('esta respondiendo');
 })
 
 app.listen(8000, ()=>{

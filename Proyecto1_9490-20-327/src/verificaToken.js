@@ -1,9 +1,7 @@
 const jwt = require('jsonwebtoken');
 
 function verificaToken(req, res, next){
-    let token = 'hola' 
-    token = req.cookies.token || req.headers["x-access-token"];
-    console.log('token del verificador:', token);
+    const token = req.cookies.token || req.headers["x-access-token"];
     
     let tokenDesifrado
     try{
