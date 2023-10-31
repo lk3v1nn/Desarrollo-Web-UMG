@@ -11,6 +11,8 @@ export default function Producto(props: {
     precioDescuento: String;
     imagen: String;
 }) {
+
+    
     const extraeDatosProducto = async (e) => {
         try {
             const identificadorProducto = e.value;
