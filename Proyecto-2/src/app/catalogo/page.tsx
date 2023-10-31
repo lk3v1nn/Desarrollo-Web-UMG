@@ -5,7 +5,7 @@ import axios from "axios";
 import "./styles/Catalogo.css";
 import Producto from "./components/Producto";
 
-export default function catalogo() {
+export default function Catalogo() {
     const [productos, setProducto] = useState();
 
     useEffect(() => {
