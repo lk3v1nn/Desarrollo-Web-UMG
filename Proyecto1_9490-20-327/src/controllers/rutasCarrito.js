@@ -10,27 +10,31 @@ router.get("/api/carrito", verificaToken, async (req, res) => {
 
 router.post("/api/carrito/add", verificaToken, async (req, res) => {
     const user = req.tokenD;
-    console.log('usuario', user);
-    
-    const productoAgregado = req.body.producto;
+    const identificador = req.body.Identificador;
+    const nombre = req.body.Nombre;
+    const descripcion = req.body.Descripcion;
     const cantidad = req.body.cantidad;
+    const precio = req.body.precio;
 
-    if (!cantidad || !productoAgregado) {
+    if (!precio || !cantidad || !identificador || !nombre || !descripcion ) {
         return res.json({ Error: "datos incompletos" });
     }
 
     //BUSCA SI YA EXISTE EL PRODUCTO
     const data = await bdCarrito.findOne({
         id_user: user,
-        producto: productoAgregado,
+        Identificador: identificador,
     });
     //SI NO EXISTE LO AGREGA
     if (!data) {
         try {
             const nuevoItemCarrito = new bdCarrito({
                 id_user: user,
-                producto: productoAgregado,
+                Identificador: identificador,
+                Nombre: nombre,
+                Descripcion : descripcion,
                 cantidad: cantidad,
+                precio: precio
             });
             nuevoItemCarrito.save();
             return res.json({ mensaje: "producto agregado al carrito" });
@@ -39,7 +43,7 @@ router.post("/api/carrito/add", verificaToken, async (req, res) => {
         }
     }else{ //SI YA EXISTE ACTUZALIZA LA CANTIDAD
         data.cantidad = cantidad;
-        await bdCarrito.updateOne({ id_user: user, producto:productoAgregado }, {cantidad: data.cantidad});
+        await bdCarrito.updateOne({ id_user: user, Identificador:identificador }, {cantidad: data.cantidad});
 //     await bdCarrito.updateOne({ id_user: user }, data);
         return res.json({ mensaje: "Carrito actualizado" });
     }
@@ -48,11 +52,11 @@ router.post("/api/carrito/add", verificaToken, async (req, res) => {
 router.delete("/api/carrito", verificaToken, async (req, res) => {
     const user = req.tokenD;
     try {
-        const producto = req.body.producto;
+        const identificador = req.body.identificador;
         if (!producto) {
             return res.json({ Error: "datos incompletos" });
         }
-        await bdCarrito.deleteOne({ id_user: user, producto });
+        await bdCarrito.deleteOne({ id_user: user, Identificador: identificador });
         res.json({ Mensjae: "Item eliminado del carrito" });
     } catch (error) {
         res.json({ error: "error al eliminar del carrito" });

@@ -9,6 +9,10 @@ export default function catalogo() {
     const [productos, setProducto] = useState();
 
     useEffect(() => {
+        obtenerDataProductos();
+    }, []);
+
+    const obtenerDataProductos = () => {
         const respuestaAxios = axios
             .get("http://localhost:8000/api/productos")
             .then((res) => {
@@ -17,7 +21,7 @@ export default function catalogo() {
             .catch(() => {
                 console.log("Error al obtener los datos");
             });
-    }, []);
+    };
 
     return (
         <div className="container">
@@ -32,6 +36,7 @@ export default function catalogo() {
                             descuento={producto.Descuento}
                             precioDescuento={producto.PrecioDescuento}
                             imagen={producto.Imagen}
+                            identificador={producto.Identificador}
                         />
                     ))}
             </div>
